@@ -2,7 +2,7 @@
 
 # grace-textarea
 
-A composition api for SpeechSynthesis
+A composition api for textarea
 
 [![NPM version][npm-image]][npm-url]
 [![Codacy Badge][codacy-image]][codacy-url]

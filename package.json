@@ -1,8 +1,8 @@
 {
 	"name": "grace-textarea",
-	"description": "A composition api for SpeechSynthesis",
-	"version": "2.0.1",
-	"packageManager": "pnpm@8.5.1",
+	"description": "A composition api for textarea",
+	"version": "1.0.0-beta.1",
+	"packageManager": "pnpm@8.6.0",
 	"main": "dist/index.cjs.js",
 	"module": "dist/index.esm-bundler.js",
 	"browser": "dist/index.esm-browser.js",
@@ -111,9 +111,9 @@
 	},
 	"keywords": [
 		"grace-textarea",
-		"SpeechSynthesis",
-		"speech",
-		"use-speech",
+		"textarea",
+		"textarea-utils",
+		"use-textarea",
 		"saqqdy"
 	],
 	"license": "MIT",
