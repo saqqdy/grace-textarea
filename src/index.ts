@@ -39,7 +39,7 @@ class Textarea {
 			el.value =
 				tmpStr.substring(0, startPos) + data + tmpStr.substring(endPos, tmpStr.length)
 			curPos += data.length
-			setTimeout(function () {
+			setTimeout(() => {
 				el.selectionStart = el.selectionEnd = curPos
 			}, 0)
 		} else {

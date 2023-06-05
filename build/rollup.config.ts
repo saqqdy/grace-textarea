@@ -2,7 +2,6 @@ import type { InternalModuleFormat, OutputOptions, Plugin, RollupOptions } from 
 import nodeResolve from '@rollup/plugin-node-resolve'
 import babel from '@rollup/plugin-babel'
 import commonjs from '@rollup/plugin-commonjs'
-import cleanup from 'rollup-plugin-cleanup'
 import terser from '@rollup/plugin-terser'
 import typescript from '@rollup/plugin-typescript'
 import filesize from 'rollup-plugin-filesize'
@@ -160,13 +159,7 @@ function createEntry(config: Config) {
 		_config.plugins.push(terser({ module: config.format === 'es' }))
 	}
 
-	_config.plugins.push(
-		cleanup({
-			comments: 'all'
-		}),
-		filesize({ reporter }),
-		visualizer()
-	)
+	_config.plugins.push(filesize({ reporter }), visualizer())
 
 	return _config
 }
