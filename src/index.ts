@@ -2,10 +2,15 @@ import { inBrowser } from 'js-cool'
 import { isRef } from '@vue/reactivity'
 import type { Ref } from '@vue/reactivity'
 
-class Textarea {
-	el: HTMLTextAreaElement | Ref<HTMLTextAreaElement> | null = null
+export type TextareaElement =
+	| HTMLTextAreaElement
+	| HTMLInputElement
+	| Ref<HTMLTextAreaElement | HTMLInputElement>
 
-	constructor(el: HTMLTextAreaElement | Ref<HTMLTextAreaElement>) {
+class Textarea {
+	el: TextareaElement | null = null
+
+	constructor(el: TextareaElement) {
 		if (!inBrowser) return
 		if (!el) {
 			console.error('element is required')
