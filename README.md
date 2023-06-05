@@ -47,10 +47,58 @@ textarea.insert('I am insert text')
 textarea.moveToEnd() // move cursors to end
 ```
 
-2. Using unpkg CDN:
+2. Using in vue3.x:
+
+```vue
+<template>
+  <textarea name="textarea" ref="textareaRef"></textarea>
+</template>
+
+<script setup>
+import { ref, onMounted } from 'vue'
+import GraceTextarea from 'grace-textarea'
+
+const textareaRef = ref(null)
+const textarea = new GraceTextarea(textareaRef)
+
+onMounted(() => {
+  textarea.insert('I am insert text')
+  textarea.moveToEnd() // move cursors to end
+})
+
+defineExpose({
+  textareaRef
+})
+</script>
+```
+
+3. Using in vue2.x:
+
+```vue
+<template>
+  <textarea name="textarea" ref="textareaRef"></textarea>
+</template>
+
+<script>
+export default {
+  mounted() {
+    const textarea = new GraceTextarea(this.$refs.textareaRef)
+
+    textarea.insert('I am insert text')
+    textarea.moveToEnd() // move cursors to end
+  }
+}
+</script>
+```
+
+4. Using unpkg CDN:
 
 ```html
 <script src="https://unpkg.com/grace-textarea@1.0.0/dist/index.global.prod.js"></script>
+<script>
+  const textarea = new GraceTextarea(document.getElementById('id'))
+  // ...
+</script>
 ```
 
 ## Support & Issues

@@ -1,7 +1,7 @@
 {
 	"name": "grace-textarea",
 	"description": "A composition api for textarea",
-	"version": "1.0.0-beta.1",
+	"version": "1.0.0-beta.2",
 	"packageManager": "pnpm@8.6.0",
 	"main": "dist/index.cjs.js",
 	"module": "dist/index.esm-bundler.js",
@@ -29,13 +29,13 @@
 		"typings"
 	],
 	"scripts": {
-		"build": "run-s clean build:{bundle,types} roll-types",
+		"build": "cross-env NODE_ENV=production run-s clean build:{bundle,types}",
 		"build:bundle": "rollup -c build/rollup.config.ts --configPlugin @rollup/plugin-typescript",
-		"build:types": "tsc -p src/tsconfig.json",
+		"build:types": "tsc -p src/tsconfig.json && pnpm roll-types",
 		"build:docs": "rm-all docs && typedoc && prettier --write \"**/*.md\"",
 		"deploy": "sh scripts/deploy.sh",
 		"roll-types": "api-extractor run && rm-all temp",
-		"watch": "pnpm build:bundle -w",
+		"watch": "cross-env NODE_ENV=development pnpm build:bundle -w",
 		"pub": "tscjs scripts/publish",
 		"unpub": "tscjs scripts/unpublish",
 		"sync": "tscjs scripts/sync",
@@ -62,6 +62,7 @@
 		"@rollup/plugin-babel": "^6.0.3",
 		"@rollup/plugin-commonjs": "^25.0.0",
 		"@rollup/plugin-node-resolve": "^15.0.2",
+		"@rollup/plugin-replace": "^5.0.2",
 		"@rollup/plugin-terser": "^0.4.3",
 		"@rollup/plugin-typescript": "^11.1.1",
 		"@types/jest": "^29.5.1",

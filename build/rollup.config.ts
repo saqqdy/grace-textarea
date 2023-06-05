@@ -6,8 +6,9 @@ import cleanup from 'rollup-plugin-cleanup'
 import terser from '@rollup/plugin-terser'
 import typescript from '@rollup/plugin-typescript'
 import filesize from 'rollup-plugin-filesize'
+import replace from '@rollup/plugin-replace'
 import { visualizer } from 'rollup-plugin-visualizer'
-import { banner, extensions, reporter } from './config'
+import { banner, extensions, reporter, version } from './config'
 
 export interface Config {
 	input: string
@@ -85,6 +86,7 @@ function createEntries() {
 
 function createEntry(config: Config) {
 	const isGlobalBuild = config.format === 'iife'
+	const isBundlerBuild = config.format !== 'iife' && !config.browser
 	const isTypeScript = config.input.endsWith('.ts')
 	const isTranspiled =
 		config.input.endsWith('bundler.js') ||
@@ -121,7 +123,19 @@ function createEntry(config: Config) {
 		_config.external.push('core-js', 'js-cool', '@vue/reactivity')
 	}
 
-	_config.plugins.push(nodeResolve(), commonjs())
+	_config.plugins.push(
+		replace({
+			include: 'node_modules/**',
+			preventAssignment: true,
+			__VERSION__: version,
+			__DEV__: isBundlerBuild
+				? `(process.env.NODE_ENV !== 'production')`
+				: config.env !== 'production',
+			'process.env.NODE_ENV': JSON.stringify(config.env)
+		}),
+		nodeResolve(),
+		commonjs()
+	)
 
 	if (config.transpile !== false) {
 		!isTranspiled &&
